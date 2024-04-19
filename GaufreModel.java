@@ -45,9 +45,21 @@ public class GaufreModel {
 
     // Méthode pour vérifier si un coup est valide
     public boolean isValidMove(int row, int col) {
-        if (row < 0 || row >= gaufre.length || col < 0 || col >= gaufre[0].length)
+        if (row < 0 || row >= gaufre.length || col < 0 || col >= gaufre[0].length || gaufre[row][col].isEmpoisonnée())
             return false; // Coup en dehors de la gaufre
         return gaufre[row][col].isCroquée() == false; // Le coup est valide si la case est comestible
+    }
+
+    // Méthode pour hover sur une case
+    public void hoverMove(int row, int col) {
+        if (isValidMove(row, col)) {
+            gaufre[row][col].setHovered(true); // Marquer la case survolée
+        }
+    }
+
+    // Méthode pour unhover une case
+    public void unhoverMove(int row, int col) {
+        gaufre[row][col].setHovered(false); // Démarquer la case survolée
     }
 
     // Méthode pour jouer un coup

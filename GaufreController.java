@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 public class GaufreController {
     private GaufreModel model;
@@ -13,6 +14,42 @@ public class GaufreController {
         this.gameOverView = gameOverView;
 
         view.addMouseListener(new ClickListener());
+        view.addMouseMotionListener(new HoverListener());
+    }
+
+    class HoverListener implements MouseMotionListener {
+        private int lastX = -1;
+        private int lastY = -1;
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            // Récupérer les coordonnées de la souris
+            int x = e.getX() / (view.getWidth() / model.getGaufre()[0].length);
+            int y = e.getY() / (view.getHeight() / model.getGaufre().length);
+
+            // Unhover the last cell
+            if (lastX != -1 && lastY != -1) {
+                model.unhoverMove(lastY, lastX);
+            }
+
+            // Mettre à jour la vue pour afficher la case survolée
+            if (model.isValidMove(y, x)) {
+                model.hoverMove(y, x);
+                view.repaint(); // Actualiser la vue
+
+                // Update the last cell
+                lastX = x;
+                lastY = y;
+            } else {
+                // Reset the last cell if the current cell is not valid
+                lastX = -1;
+                lastY = -1;
+            }
+        }
     }
 
     class ClickListener implements MouseListener {
@@ -32,7 +69,8 @@ public class GaufreController {
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     frame.getContentPane().add(gameOverView);
                     frame.pack();
-                    frame.setAlwaysOnTop(true); // Définir le niveau de la fenêtre de game over au-dessus de la fenêtre principale
+                    frame.setAlwaysOnTop(true); // Définir le niveau de la fenêtre de game over au-dessus de la fenêtre
+                                                // principale
                     frame.setVisible(true);
                 }
                 view.repaint(); // Actualiser la vue
@@ -41,13 +79,20 @@ public class GaufreController {
 
         // peut etre utiliser pour visualiser les coups
         @Override
-        public void mousePressed(MouseEvent e) {}
+        public void mousePressed(MouseEvent e) {
+        }
+
         @Override
-        public void mouseReleased(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {
+        }
+
         @Override
-        public void mouseEntered(MouseEvent e) {}
+        public void mouseEntered(MouseEvent e) {
+        }
+
         @Override
-        public void mouseExited(MouseEvent e) {}
+        public void mouseExited(MouseEvent e) {
+        }
     }
 
     public static void main(String[] args) {
