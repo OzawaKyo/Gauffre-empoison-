@@ -1,3 +1,10 @@
-petite version qui marche assez bien et pourra servir comme base ,
-mais pour la suite faudra changer la structure de Gauffre[][]
-en lui ajouter 3 attributs : emposoné , croqué , hovered (pour visualiser les coups)
+Execution : java GauffreController
+
+actual version 4:
+    structure modifié comme decris en version3.readme
+    reste a implementer la visualisation des coups
+
+version 3:
+    petite version qui marche assez bien et pourra servir comme base ,
+    mais pour la suite faudra changer la structure de Gauffre[][]
+    en lui ajouter 3 attributs : emposoné , croqué , hovered (pour visualiser les coups)
