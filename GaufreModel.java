@@ -55,7 +55,7 @@ public class GaufreModel {
             // Mettre à jour la gaufre en retirant les cases
             for (int i = row; i < gaufre.length; i++) {
                 for (int j = col; j < gaufre[i].length; j++) {
-                    gaufre[i][j] = 3; // Marquer la case et les cases à droite/bas comme empoisonnées
+                    gaufre[i][j] = 3; // Marquer la case et les cases à droite/bas comme croquées
                 }
             }
             // Vérifier si le coup perdant a été joué
