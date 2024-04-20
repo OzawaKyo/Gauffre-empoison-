@@ -25,7 +25,7 @@ public class GaufreView extends JPanel {
                 } else if (gaufre[i][j].isCroquée()) {
                     g.setColor(Color.GRAY); // Couleur pour les cases croquées
                 }
-                if (gaufre[i][j].isHovered()) {
+                if (gaufre[i][j].isHovered() && !gaufre[i][j].isCroquée()) {
                     g.setColor(Color.YELLOW); // Couleur pour la case survolée
                 }
                 g.fillRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight);

@@ -53,13 +53,26 @@ public class GaufreModel {
     // Méthode pour hover sur une case
     public void hoverMove(int row, int col) {
         if (isValidMove(row, col)) {
-            gaufre[row][col].setHovered(true); // Marquer la case survolée
+            // gaufre[row][col].setHovered(true); // Marquer la case survolée
+            for (int i = row; i < gaufre.length; i++) {
+                for (int j = col; j < gaufre[i].length; j++) {
+                    if (!gaufre[i][j].isCroquée()) {
+                        gaufre[i][j].setHovered(true); // Marquer la case et les cases à droite/bas comme survolées
+                    }
+                }
+            }
         }
     }
 
     // Méthode pour unhover une case
     public void unhoverMove(int row, int col) {
-        gaufre[row][col].setHovered(false); // Démarquer la case survolée
+        // gaufre[row][col].setHovered(false); // Démarquer la case survolée
+        for (int i = row; i < gaufre.length; i++) {
+            for (int j = col; j < gaufre[i].length; j++) {
+                if (!gaufre[i][j].isCroquée())
+                    gaufre[i][j].setHovered(false); // Démarquer la case et les cases à droite/bas comme survolées
+            }
+        }
     }
 
     // Méthode pour jouer un coup

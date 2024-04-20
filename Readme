@@ -1,6 +1,15 @@
 Execution : java GauffreController
 
-actual version 4:
+actual version : 5
+
+version 5:
+    visualisation des coups implementée
+    prochaine étape : implementer l'IA
+        permettre de choisir contre qui on joue (IA ou joueur)
+        implementer l'IA random
+        implementer l'IA minimax
+
+version 4:
     structure modifié comme decris en version3.readme
     reste a implementer la visualisation des coups
 
