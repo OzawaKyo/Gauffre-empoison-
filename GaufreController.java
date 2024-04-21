@@ -9,14 +9,11 @@ public class GaufreController {
     private GaufreModel model;
     private GaufreView view;
     private GameOverView gameOverView;
-    private GaufreHistorique historique;
 
-    public GaufreController(GaufreModel model, GaufreView view, GameOverView gameOverView,
-            GaufreHistorique historique) {
+    public GaufreController(GaufreModel model, GaufreView view, GameOverView gameOverView) {
         this.model = model;
         this.view = view;
         this.gameOverView = gameOverView;
-        this.historique = historique;
 
         view.setFocusable(true); // Permettre à la vue de recevoir le focus
         view.requestFocusInWindow(); // Demander le focus pour la vue
@@ -34,8 +31,7 @@ public class GaufreController {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_R) {
-                System.out.println("Undoing the last move");
-                model.undoMove(historique.annulerCoup());
+                model.undoMove();
                 view.repaint(); // Actualiser la vue
             }
         }
@@ -90,7 +86,6 @@ public class GaufreController {
             // Vérifier si le coup est valide et jouer le coup
             if (model.isValidMove(y, x) && !model.isGameOver()) {
                 model.playMove(y, x);
-                historique.ajouterCoup(y, x);
                 if (model.isGameOver() || model.isFull()) {
                     String winner = (model.getCurrentPlayer() == 1) ? "Player 2" : "Player 1";
                     gameOverView.setGameOverMessage("Game Over! " + winner + " wins!");
@@ -128,8 +123,7 @@ public class GaufreController {
         GaufreModel model = new GaufreModel(6, 8);
         GaufreView view = new GaufreView(model);
         GameOverView gameOverView = new GameOverView();
-        GaufreHistorique historique = new GaufreHistorique();
-        GaufreController controller = new GaufreController(model, view, gameOverView, historique);
+        GaufreController controller = new GaufreController(model, view, gameOverView);
 
         JFrame frame = new JFrame("Gaufre Empoisonnée");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

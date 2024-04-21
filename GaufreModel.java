@@ -4,6 +4,7 @@ public class GaufreModel {
     private Gauffre[][] gaufre;
     private boolean gameOver;
     private int currentPlayer;
+    private GaufreHistorique historique;
 
     public GaufreModel(int rows, int cols) {
         // Initialisation de la gaufre
@@ -17,6 +18,8 @@ public class GaufreModel {
         gaufre[0][0].setEmpoisonnée(true);
         this.gameOver = false;
         this.currentPlayer = 1; // Joueur 1 commence
+        this.historique = new GaufreHistorique(gaufre);
+
     }
 
     public Gauffre[][] getGaufre() {
@@ -81,6 +84,7 @@ public class GaufreModel {
     public void playMove(int row, int col) {
         // Vérifier si le coup est valide
         if (isValidMove(row, col)) {
+            historique.ajouterCoup(gaufre);
             // Mettre à jour la gaufre en retirant les cases
             for (int i = row; i < gaufre.length; i++) {
                 for (int j = col; j < gaufre[i].length; j++) {
@@ -98,17 +102,29 @@ public class GaufreModel {
     }
 
     // Méthode pour annuler le dernier coup
-    public void undoMove(Point lastMove) {
-        // Récupérer le dernier coup
-        if (lastMove != null) {
-            // Mettre à jour la gaufre en remettant les cases
-            for (int i = lastMove.x; i < gaufre.length; i++) {
-                for (int j = lastMove.y; j < gaufre[i].length; j++) {
-                    gaufre[i][j].setCroquée(false); // Démarquer la case et les cases à droite/bas comme croquées
+    public void undoMove() {
+        printGaufre();
+        Gauffre[][] newGaufre = historique.annulerCoup();
+        System.out.println("Undoing the last move");
+        printGaufre();
+        if (newGaufre == null)
+            return;
+        this.gaufre = newGaufre;
+        currentPlayer = (currentPlayer == 1) ? 2 : 1; // Changer de joueur
+    }
+
+    public void printGaufre() {
+        for (int i = 0; i < gaufre.length; i++) {
+            for (int j = 0; j < gaufre[i].length; j++) {
+                if (gaufre[i][j].isEmpoisonnée()) {
+                    System.out.print("X ");
+                } else if (!gaufre[i][j].isCroquée()) {
+                    System.out.print("O ");
+                } else if (gaufre[i][j].isCroquée()) {
+                    System.out.print("X ");
                 }
             }
-            // Changer de joueur
-            currentPlayer = (currentPlayer == 1) ? 2 : 1;
+            System.out.println();
         }
     }
 }
