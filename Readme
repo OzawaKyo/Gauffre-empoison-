@@ -1,6 +1,11 @@
-Execution : java GauffreController
+Execution : javac *.java && java GauffreController
 
-actual version : 5
+actual version : 6
+
+version 6:
+    implementation d'un historique des coups, et possibilité de revenir en arrière avec la touche 'r'
+    bug : le undo ne recule pas en arriere mais joue juste le coup précédent à l'envers
+    resolution en version 7 : sauvegarder toute la gauffre à chaque coup, et la recharger à chaque undo
 
 version 5:
     visualisation des coups implementée

@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 public class GaufreModel {
     private Gauffre[][] gaufre;
     private boolean gameOver;
@@ -92,6 +94,21 @@ public class GaufreModel {
                 // Changer de joueur
                 currentPlayer = (currentPlayer == 1) ? 2 : 1;
             }
+        }
+    }
+
+    // Méthode pour annuler le dernier coup
+    public void undoMove(Point lastMove) {
+        // Récupérer le dernier coup
+        if (lastMove != null) {
+            // Mettre à jour la gaufre en remettant les cases
+            for (int i = lastMove.x; i < gaufre.length; i++) {
+                for (int j = lastMove.y; j < gaufre[i].length; j++) {
+                    gaufre[i][j].setCroquée(false); // Démarquer la case et les cases à droite/bas comme croquées
+                }
+            }
+            // Changer de joueur
+            currentPlayer = (currentPlayer == 1) ? 2 : 1;
         }
     }
 }
