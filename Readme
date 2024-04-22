@@ -1,6 +1,10 @@
 Execution : javac *.java && java GauffreController
 
-actual version : 7.5
+actual version : 7.9
+
+version 7.9:
+    implementation de refaire qui marche pas mal
+    bug : apres un undo + redo + move , le undo bug 
 
 version 7.5:
     Instructions:

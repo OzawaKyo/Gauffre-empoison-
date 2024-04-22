@@ -18,7 +18,7 @@ public class GaufreModel {
         gaufre[0][0].setEmpoisonnée(true);
         this.gameOver = false;
         this.currentPlayer = 1; // Joueur 1 commence
-        this.historique = new GaufreHistorique();
+        this.historique = new GaufreHistorique(this.gaufre);
 
     }
 
@@ -84,16 +84,14 @@ public class GaufreModel {
     public void playMove(int row, int col) {
         // Vérifier si le coup est valide
         if (isValidMove(row, col)) {
-            // Sauvegarder dans l'historique
-            historique.ajouterCoup(gaufre);
-
             // Mettre à jour la gaufre en retirant les cases
             for (int i = row; i < gaufre.length; i++) {
                 for (int j = col; j < gaufre[i].length; j++) {
                     gaufre[i][j].setCroquée(true); // Marquer la case et les cases à droite/bas comme croquées
                 }
             }
-
+            // Sauvegarder dans l'historique
+            historique.ajouterCoup(gaufre);
             // Vérifier si le coup perdant a été joué
             if (row == 0 && col == 0) {
                 gameOver = true;
@@ -101,14 +99,27 @@ public class GaufreModel {
                 // Changer de joueur
                 currentPlayer = (currentPlayer == 1) ? 2 : 1;
             }
+            // Vider la pile refaire
+            historique.viderRefaire();
         }
     }
 
     // Méthode pour annuler le dernier coup
     public void undoMove() {
-        if (historique.estVide())
+        if (historique.HistoriqueEstVide())
             return;
         Gauffre[][] newGaufre = historique.annulerCoup();
+        if (newGaufre == null)
+            return;
+        this.gaufre = newGaufre;
+        currentPlayer = (currentPlayer == 1) ? 2 : 1; // Changer de joueur
+    }
+
+    // Méthode pour refaire le dernier coup annulé
+    public void redoMove() {
+        if (historique.RefaireEstVide())
+            return;
+        Gauffre[][] newGaufre = historique.refaireCoup();
         if (newGaufre == null)
             return;
         this.gaufre = newGaufre;
@@ -131,6 +142,10 @@ public class GaufreModel {
     }
 
     public void printHistorique() {
-        historique.printStack();
+        historique.printHistoriqueStack();
+    }
+
+    public void printRefaire() {
+        historique.printRefaireStack();
     }
 }

@@ -42,11 +42,19 @@ public class GaufreController {
                 System.out.println("Historique:");
                 model.printHistorique();
             }
+            if (e.getKeyCode() == KeyEvent.VK_P) {
+                System.out.println("Pile refaire:");
+                model.printRefaire();
+            }
             if (e.getKeyCode() == KeyEvent.VK_Q) {
                 System.exit(0);
             }
             if (e.getKeyCode() == KeyEvent.VK_M) {
                 view.toggleHoverMode();
+            }
+            if (e.getKeyCode() == KeyEvent.VK_Z) {
+                model.redoMove();
+                view.repaint();
             }
         }
 
@@ -165,6 +173,8 @@ public class GaufreController {
         System.out.println("2. Press 'M' to toggle hover mode.");
         System.out.println("3. Press 'R' to undo the last move.");
         System.out.println("4. Press 'H' to print the game history.");
+        System.out.println("5. Press 'P' to print the redo stack.");
+        System.out.println("6. Press 'Z' to redo the last move.");
         System.out.println("5. Press 'Q' to quit the game.");
 
         JFrame frame = new JFrame("Gaufre Empoisonnée");
