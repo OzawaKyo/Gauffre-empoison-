@@ -18,7 +18,7 @@ public class GaufreModel {
         gaufre[0][0].setEmpoisonnée(true);
         this.gameOver = false;
         this.currentPlayer = 1; // Joueur 1 commence
-        this.historique = new GaufreHistorique(gaufre);
+        this.historique = new GaufreHistorique();
 
     }
 
@@ -84,7 +84,9 @@ public class GaufreModel {
     public void playMove(int row, int col) {
         // Vérifier si le coup est valide
         if (isValidMove(row, col)) {
+            // Sauvegarder dans l'historique
             historique.ajouterCoup(gaufre);
+
             // Mettre à jour la gaufre en retirant les cases
             for (int i = row; i < gaufre.length; i++) {
                 for (int j = col; j < gaufre[i].length; j++) {
@@ -126,5 +128,9 @@ public class GaufreModel {
             }
             System.out.println();
         }
+    }
+
+    public void printHistorique() {
+        historique.printStack();
     }
 }

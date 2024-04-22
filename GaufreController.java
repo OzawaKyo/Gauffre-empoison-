@@ -34,6 +34,13 @@ public class GaufreController {
                 model.undoMove();
                 view.repaint(); // Actualiser la vue
             }
+            if (e.getKeyCode() == KeyEvent.VK_H) {
+                System.out.println("Historique:");
+                model.printHistorique();
+            }
+            if (e.getKeyCode() == KeyEvent.VK_Q) {
+                System.exit(0);
+            }
         }
 
         @Override

@@ -1,6 +1,11 @@
 Execution : javac *.java && java GauffreController
 
-actual version : 6.5
+actual version : 7
+
+version 7:
+    le undo marche enfin ( copy profonde)
+    bouton Q pour exit 
+    
 
 version 6.5:
     bug : le undo ne marche pas trop , pas reussi à le fixer , si quelqu'un reussi gg à toi
