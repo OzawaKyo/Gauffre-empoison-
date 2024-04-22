@@ -11,13 +11,13 @@ public class GaufreController {
   private GaufreView view;
   private GameOverView gameOverView;
   private GaufreRandomAI randomAI;
-  private int gamemode;
+  private int gamemode; // -1 = no selection, 0 = against AI, 1 = against player
 
-  public GaufreController(GaufreModel model, GaufreView view, GameOverView gameOverView, int gamemode) {
+  public GaufreController(GaufreModel model, GaufreView view, GameOverView gameOverView) {
     this.model = model;
     this.view = view;
     this.gameOverView = gameOverView;
-    this.gamemode = gamemode;
+    this.gamemode = -1;
     this.randomAI = new GaufreRandomAI(); // Instance de l'IA aléatoire
 
     view.setFocusable(true); // Permettre à la vue de recevoir le focus
@@ -165,13 +165,17 @@ public class GaufreController {
     }
   }
 
+  // Allow to change the gamemode
+  public void setGamemode(int gamemode) {
+    this.gamemode = gamemode;
+  }
+
   public static void main(String[] args) {
     GaufreModel model = new GaufreModel(6, 8);
-    GaufreView view = new GaufreView(model);
-    SelectModeView selectModeView = new SelectModeView(model);
     GameOverView gameOverView = new GameOverView();
-    int gamemode = -1; // -1 = no selection, 0 = against AI, 1 = against player
-    GaufreController controller = new GaufreController(model, view, gameOverView, gamemode);
+    GaufreView view = new GaufreView(model);
+    GaufreController controller = new GaufreController(model, view, gameOverView);
+    SelectModeView selectModeView = new SelectModeView(model, controller);
 
     JFrame frame = new JFrame("Gaufre Empoisonnée");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -180,7 +184,8 @@ public class GaufreController {
     frame.setVisible(true);
 
     // Wait for user to make a selection
-    while (gamemode == -1) {
+    while (controller.gamemode == -1) {
+      System.out.println(controller.gamemode);
       try {
         Thread.sleep(100);
       } catch (InterruptedException e) {
