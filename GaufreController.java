@@ -36,6 +36,7 @@ public class GaufreController {
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_R) {
                 model.undoMove();
+                view.updateCurrentPlayerLabel();
                 view.repaint(); // Actualiser la vue
             }
             if (e.getKeyCode() == KeyEvent.VK_H) {
@@ -54,6 +55,7 @@ public class GaufreController {
             }
             if (e.getKeyCode() == KeyEvent.VK_Z) {
                 model.redoMove();
+                view.updateCurrentPlayerLabel();
                 view.repaint();
             }
         }
@@ -110,6 +112,8 @@ public class GaufreController {
 
             if (model.isValidMove(y, x)) {
                 model.playMove(y, x);
+                view.updateCurrentPlayerLabel();
+                view.repaint();
 
                 if (model.isGameOver() || model.isFull()) {
                     handleGameOver();

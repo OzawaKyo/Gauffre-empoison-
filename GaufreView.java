@@ -4,10 +4,20 @@ import java.awt.*;
 public class GaufreView extends JPanel {
     private GaufreModel model;
     private boolean hoverMode = false;
+    private JLabel currentPlayerLabel;
 
     public GaufreView(GaufreModel model) {
         this.model = model;
         setPreferredSize(new Dimension(400, 300)); // Taille de la vue
+
+        // Créer le label pour afficher le joueur courant
+        currentPlayerLabel = new JLabel("Joueur courant : " + model.getCurrentPlayer());
+        add(currentPlayerLabel, BorderLayout.NORTH);
+
+    }
+
+    public void updateCurrentPlayerLabel() {
+        currentPlayerLabel.setText("Joueur courant : " + model.getCurrentPlayer());
     }
 
     public void toggleHoverMode() {
@@ -17,6 +27,7 @@ public class GaufreView extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+
         super.paintComponent(g);
         Gauffre[][] gaufre = model.getGaufre();
         int cellWidth = getWidth() / gaufre[0].length;
