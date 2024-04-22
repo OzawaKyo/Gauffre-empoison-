@@ -3,10 +3,16 @@ import java.awt.*;
 
 public class GaufreView extends JPanel {
     private GaufreModel model;
+    private boolean hoverMode = false;
 
     public GaufreView(GaufreModel model) {
         this.model = model;
         setPreferredSize(new Dimension(400, 300)); // Taille de la vue
+    }
+
+    public void toggleHoverMode() {
+        hoverMode = !hoverMode;
+        repaint(); // Actualiser la vue
     }
 
     @Override
@@ -25,7 +31,7 @@ public class GaufreView extends JPanel {
                 } else if (gaufre[i][j].isCroquée()) {
                     g.setColor(Color.GRAY); // Couleur pour les cases croquées
                 }
-                if (gaufre[i][j].isHovered() && !gaufre[i][j].isCroquée()) {
+                if (gaufre[i][j].isHovered() && !gaufre[i][j].isCroquée() && hoverMode) {
                     g.setColor(Color.YELLOW); // Couleur pour la case survolée
                 }
                 g.fillRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight);

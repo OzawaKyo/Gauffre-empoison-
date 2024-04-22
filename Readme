@@ -1,11 +1,19 @@
 Execution : javac *.java && java GauffreController
 
-actual version : 7
+actual version : 7.5
+
+version 7.5:
+    Instructions:
+    1. Click on a cell to eat it.
+    2. Press 'M' to toggle hover mode.
+    3. Press 'R' to undo the last move.
+    4. Press 'H' to print the game history.
+    5. Press 'Q' to quit the game.
 
 version 7:
     le undo marche enfin ( copy profonde)
     bouton Q pour exit 
-    
+
 
 version 6.5:
     bug : le undo ne marche pas trop , pas reussi à le fixer , si quelqu'un reussi gg à toi

@@ -41,6 +41,9 @@ public class GaufreController {
             if (e.getKeyCode() == KeyEvent.VK_Q) {
                 System.exit(0);
             }
+            if (e.getKeyCode() == KeyEvent.VK_M) {
+                view.toggleHoverMode();
+            }
         }
 
         @Override
@@ -131,6 +134,14 @@ public class GaufreController {
         GaufreView view = new GaufreView(model);
         GameOverView gameOverView = new GameOverView();
         GaufreController controller = new GaufreController(model, view, gameOverView);
+
+        // print the instructions
+        System.out.println("Instructions:");
+        System.out.println("1. Click on a cell to eat it.");
+        System.out.println("2. Press 'M' to toggle hover mode.");
+        System.out.println("3. Press 'R' to undo the last move.");
+        System.out.println("4. Press 'H' to print the game history.");
+        System.out.println("5. Press 'Q' to quit the game.");
 
         JFrame frame = new JFrame("Gaufre Empoisonnée");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
