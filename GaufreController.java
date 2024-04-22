@@ -9,11 +9,15 @@ public class GaufreController {
     private GaufreModel model;
     private GaufreView view;
     private GameOverView gameOverView;
+    private GaufreRandomAI randomAI;
+    private boolean playAgainstAI;
 
-    public GaufreController(GaufreModel model, GaufreView view, GameOverView gameOverView) {
+    public GaufreController(GaufreModel model, GaufreView view, GameOverView gameOverView, boolean playAgainstAI) {
         this.model = model;
         this.view = view;
         this.gameOverView = gameOverView;
+        this.playAgainstAI = playAgainstAI;
+        this.randomAI = new GaufreRandomAI(); // Instance de l'IA aléatoire
 
         view.setFocusable(true); // Permettre à la vue de recevoir le focus
         view.requestFocusInWindow(); // Demander le focus pour la vue
@@ -89,26 +93,45 @@ public class GaufreController {
     class ClickListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
-            // Récupérer les coordonnées du clic
+            if (model.isGameOver()) {
+                return;
+            }
+
             int x = e.getX() / (view.getWidth() / model.getGaufre()[0].length);
             int y = e.getY() / (view.getHeight() / model.getGaufre().length);
 
-            // Vérifier si le coup est valide et jouer le coup
-            if (model.isValidMove(y, x) && !model.isGameOver()) {
+            if (model.isValidMove(y, x)) {
                 model.playMove(y, x);
+
                 if (model.isGameOver() || model.isFull()) {
-                    String winner = (model.getCurrentPlayer() == 1) ? "Player 2" : "Player 1";
-                    gameOverView.setGameOverMessage("Game Over! " + winner + " wins!");
-                    JFrame frame = new JFrame("Game Over");
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.getContentPane().add(gameOverView);
-                    frame.pack();
-                    frame.setAlwaysOnTop(true); // Définir le niveau de la fenêtre de game over au-dessus de la fenêtre
-                                                // principale
-                    frame.setVisible(true);
+                    handleGameOver();
+                } else {
+                    view.repaint();
+
+                    if (playAgainstAI && model.getCurrentPlayer() == 2) {
+                        // L'IA joue automatiquement après le joueur humain
+                        int[] aiMove = randomAI.getRandomMove(model);
+                        if (aiMove != null) {
+                            model.playMove(aiMove[0], aiMove[1]);
+                            if (model.isGameOver() || model.isFull()) {
+                                handleGameOver();
+                            }
+                            view.repaint();
+                        }
+                    }
                 }
-                view.repaint(); // Actualiser la vue
             }
+        }
+
+        private void handleGameOver() {
+            String winner = (model.getCurrentPlayer() == 1) ? "Player 2" : "Player 1";
+            gameOverView.setGameOverMessage("Game Over! " + winner + " wins!");
+            JFrame frame = new JFrame("Game Over");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().add(gameOverView);
+            frame.pack();
+            frame.setAlwaysOnTop(true);
+            frame.setVisible(true);
         }
 
         // peut etre utiliser pour visualiser les coups
@@ -133,7 +156,8 @@ public class GaufreController {
         GaufreModel model = new GaufreModel(6, 8);
         GaufreView view = new GaufreView(model);
         GameOverView gameOverView = new GameOverView();
-        GaufreController controller = new GaufreController(model, view, gameOverView);
+        boolean playAgainstAI = false;
+        GaufreController controller = new GaufreController(model, view, gameOverView, playAgainstAI);
 
         // print the instructions
         System.out.println("Instructions:");

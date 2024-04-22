@@ -1,30 +1,24 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 public class GaufreHistorique {
 
     // une pile pour stocker les gaufres à chaque coup
-    private List<Gauffre[][]> historique;
-    private int index;
+    private Stack<Gauffre[][]> historique;
 
     // Constructeur
     public GaufreHistorique() {
-        historique = new ArrayList<>();
-        // historique.add(copieProfonde(gaufre));
-        index = 0;
+        historique = new Stack<>();
     }
 
     // Méthode pour ajouter un coup à l'historique
     public void ajouterCoup(Gauffre[][] gaufre) {
         historique.add(copieProfonde(gaufre));
-        index++;
     }
 
     // Méthode pour annuler le dernier coup
     public Gauffre[][] annulerCoup() {
-        if (index > 0) {
-            index--;
-            return copieProfonde(historique.get(index));
+        if (!estVide()) {
+            return historique.pop();
         }
         return null;
     }
@@ -54,7 +48,7 @@ public class GaufreHistorique {
 
     // Méthode pour vérifier si l'historique est vide
     public boolean estVide() {
-        if (getLength() == 1) {
+        if (getLength() == 0) {
             return true;
         }
         return false;

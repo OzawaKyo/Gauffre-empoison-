@@ -93,6 +93,7 @@ public class GaufreModel {
                     gaufre[i][j].setCroquée(true); // Marquer la case et les cases à droite/bas comme croquées
                 }
             }
+
             // Vérifier si le coup perdant a été joué
             if (row == 0 && col == 0) {
                 gameOver = true;
@@ -105,10 +106,9 @@ public class GaufreModel {
 
     // Méthode pour annuler le dernier coup
     public void undoMove() {
-        printGaufre();
+        if (historique.estVide())
+            return;
         Gauffre[][] newGaufre = historique.annulerCoup();
-        System.out.println("Undoing the last move");
-        printGaufre();
         if (newGaufre == null)
             return;
         this.gaufre = newGaufre;
