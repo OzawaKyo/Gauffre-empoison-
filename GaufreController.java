@@ -172,20 +172,20 @@ public class GaufreController {
 
   public static void main(String[] args) {
     GaufreModel model = new GaufreModel(6, 8);
-    GameOverView gameOverView = new GameOverView();
     GaufreView view = new GaufreView(model);
+    GameOverView gameOverView = new GameOverView();
     GaufreController controller = new GaufreController(model, view, gameOverView);
     SelectModeView selectModeView = new SelectModeView(model, controller);
 
     JFrame frame = new JFrame("Gaufre Empoisonnée");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.getContentPane().add(selectModeView);
+    frame.getContentPane().add(view); // Add the view first
+    frame.getContentPane().add(selectModeView); // Then add the selectModeView
     frame.pack();
     frame.setVisible(true);
 
     // Wait for user to make a selection
     while (controller.gamemode == -1) {
-      System.out.println(controller.gamemode);
       try {
         Thread.sleep(100);
       } catch (InterruptedException e) {
@@ -207,5 +207,6 @@ public class GaufreController {
     System.out.println("5. Press 'P' to print the redo stack.");
     System.out.println("6. Press 'Z' to redo the last move.");
     System.out.println("5. Press 'Q' to quit the game.");
+
   }
 }
