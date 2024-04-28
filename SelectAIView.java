@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class SelectModeView extends JPanel {
+public class SelectAIView extends JPanel {
     private GaufreController controller;
     private JButton buttonAI;
     private JButton buttonPlayer;
@@ -24,21 +24,21 @@ public class SelectModeView extends JPanel {
     private static final int BUTTON_HEIGHT = 50;
     private static final int BUTTON_SPACING = 20;
 
-    public SelectModeView(GaufreModel model, GaufreController controller) {
+    public SelectAIView(GaufreModel model, GaufreController controller) {
         this.controller = controller;
         setPreferredSize(new Dimension(800, 600)); // Set the size of the view
 
-        buttonAI = new JButton("AI");
+        buttonAI = new JButton("Random AI");
         buttonAI.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.setGamemode(0);
+                controller.setAiLevel(0);
             }
         });
 
-        buttonPlayer = new JButton("2 players");
+        buttonPlayer = new JButton("Medium AI");
         buttonPlayer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.setGamemode(1);
+                controller.setAiLevel(1);
             }
         });
 

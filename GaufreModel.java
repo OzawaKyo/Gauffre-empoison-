@@ -87,7 +87,10 @@ public class GaufreModel {
             // Mettre à jour la gaufre en retirant les cases
             for (int i = row; i < gaufre.length; i++) {
                 for (int j = col; j < gaufre[i].length; j++) {
-                    gaufre[i][j].setCroquée(true); // Marquer la case et les cases à droite/bas comme croquées
+                    if (!gaufre[i][j].isCroquée()){
+                        gaufre[i][j].setCroquée(true); // Marquer la case et les cases à droite/bas comme croquées
+                        gaufre[i][j].setPlayerColor(currentPlayer);
+                    }
                 }
             }
             // Sauvegarder dans l'historique
