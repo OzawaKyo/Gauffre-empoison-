@@ -1,45 +1,40 @@
-Execution : javac *.java && java GauffreController
+Jeu de Gaufre
+Bienvenue sur le projet Jeu de Gaufre ! Cette application Java est une simulation d'un jeu stratégique où deux joueurs se relaient pour manger une gaufre virtuelle tout en évitant de consommer la partie empoisonnée. Ce projet a été conçu comme un exercice pour explorer et maîtriser la technologie Java Swing avant de se lancer dans un projet plus ambitieux, nommé Quatro.
 
-actual version : 7.9
+Fonctionnalités
+Jeu interactif : Affrontez l'ordinateur ou un autre joueur dans une partie où chacun doit éviter de manger la gaufre empoisonnée.
+Divers adversaires IA : Testez vos compétences contre une IA à difficulté moyenne ou aléatoire, pour des parties toujours différentes.
+Historique de jeu : Visualisez les mouvements effectués par vous et votre adversaire grâce à la fonctionnalité GaufreHistorique.
+Modes de jeu multiples : Choisissez parmi différents modes de jeu et adversaires IA via des interfaces intuitives.
+Architecture MVC : Construit en suivant le modèle Modèle-Vue-Contrôleur (MVC), assurant une maintenance aisée et une évolutivité pour de futures améliorations.
+Objectif du Projet
+Le Jeu de Gaufre a été développé comme un projet de test pour explorer Java Swing, une bibliothèque graphique Java. L'objectif était de se familiariser avec la création d'interfaces utilisateur et la gestion d'événements avant de passer à des projets plus complexes, tels que Quatro.
 
-version 7.9:
-    implementation de refaire qui marche pas mal
-    bug : apres un undo + redo + move , le undo bug 
-    affichage du joueur courant
+Prise en Main
+Pour démarrer avec le Jeu de Gaufre, suivez les étapes suivantes :
 
-version 7.5:
-    Instructions:
-    1. Click on a cell to eat it.
-    2. Press 'M' to toggle hover mode.
-    3. Press 'R' to undo the last move.
-    4. Press 'H' to print the game history.
-    5. Press 'Q' to quit the game.
+1. Cloner le dépôt
+git clone https://github.com/votreusername/Gauffre-empoison-.git
 
-version 7:
-    le undo marche enfin ( copy profonde)
-    bouton Q pour exit 
+2. Compiler le Projet
+Accédez au répertoire du projet et compilez les fichiers Java :
+javac *.java
+
+3. Exécuter le Jeu
+Après la compilation, lancez le jeu en utilisant Java :
+java GaufreController
 
 
-version 6.5:
-    bug : le undo ne marche pas trop , pas reussi à le fixer , si quelqu'un reussi gg à toi
+Structure du Projet
+Le projet est organisé de la manière suivante :
 
-version 6:
-    implementation d'un historique des coups, et possibilité de revenir en arrière avec la touche 'r'
-    bug : le undo ne recule pas en arriere mais joue juste le coup précédent à l'envers
-    resolution en version 7 : sauvegarder toute la gauffre à chaque coup, et la recharger à chaque undo
-
-version 5:
-    visualisation des coups implementée
-    prochaine étape : implementer l'IA
-        permettre de choisir contre qui on joue (IA ou joueur)
-        implementer l'IA random
-        implementer l'IA minimax
-
-version 4:
-    structure modifié comme decris en version3.readme
-    reste a implementer la visualisation des coups
-
-version 3:
-    petite version qui marche assez bien et pourra servir comme base ,
-    mais pour la suite faudra changer la structure de Gauffre[][]
-    en lui ajouter 3 attributs : emposoné , croqué , hovered (pour visualiser les coups)
+GameOverView.java : Gère l'écran de fin de jeu et son affichage.
+Gauffre.java : Classe principale qui initialise le jeu.
+GaufreController.java : Contrôle la logique du jeu et les interactions entre le modèle et les vues.
+GaufreHistorique.java : Suit et affiche l'historique des mouvements du jeu.
+GaufreMediumAI.java : Implémente une IA de difficulté moyenne.
+GaufreModel.java : Représente les données du jeu.
+GaufreRandomAI.java : Implémente une IA avec des comportements aléatoires.
+GaufreView.java : Gère l'interface utilisateur principale du jeu.
+SelectAIView.java : Interface pour la sélection de l'adversaire IA.
+SelectModeView.java : Interface pour la sélection du mode de jeu.
