@@ -15,7 +15,7 @@ Le Jeu de Gaufre a été développé comme un projet de test pour explorer Java 
 Pour démarrer avec le Jeu de Gaufre, suivez les étapes suivantes :
 
 1. Cloner le dépôt
-git clone https://github.com/votreusername/Gauffre-empoison-.git
+git clone https://github.com/OzawaKyo/Gauffre-empoison-.git
 
 2. Compiler le Projet
 Accédez au répertoire du projet et compilez les fichiers Java :
